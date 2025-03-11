@@ -19,22 +19,36 @@ async function main() {
     // Selecionando a coleção "livros"
     const livros = database.collection("livros");
 
-    // Selecionando dados do banco
-    await livros.insertMany([
-      { titulo: "1984", autor: "George Orwell", ano: 1949, genero: "Distopia" },
-      {
-        titulo: "Dom Casmurro",
-        autor: "Machado de Assis",
-        ano: 1899,
-        genero: "Romance",
-      },
-      {
-        titulo: "Senhor dos Anéis",
-        autor: "J. R. R Tolkel",
-        ano: 1954,
-        genero: "Fantasia",
-      },
-    ]);
+    // Inserindo dados do banco
+    // await livros.insertMany([
+    //   { titulo: "1984", autor: "George Orwell", ano: 1949, genero: "Distopia" },
+    //   {
+    //     titulo: "Dom Casmurro",
+    //     autor: "Machado de Assis",
+    //     ano: 1899,
+    //     genero: "Romance",
+    //   },
+    //   {
+    //     titulo: "Senhor dos Anéis",
+    //     autor: "J. R. R Tolkel",
+    //     ano: 1954,
+    //     genero: "Fantasia",
+    //   },
+    // ]);
+
+    // consultar todos os documentos
+    // const todosLivros = await livros.find().toArray();
+    // console.log("Livros: ", todosLivros);
+
+    // atualizar um documento
+    // await livros.updataOne(
+    //   { titulo: "1984" }, // Filtro para encontrar registro
+    //   { $set: { ano: 1950 } }
+    // );
+
+    // excluir um documento
+    await livros.deleteOne({ titulo: "Dom Casmurro" });
+
   } finally {
     await client.close();
   }
