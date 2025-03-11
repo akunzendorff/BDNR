@@ -4,17 +4,17 @@ const { MongoClient } = require("mongodb");
 // Função principal
 async function main() {
   // Definir a URL de conexão com o MongoDB
-  const url = "mongodb://localhost:27017";
+  const uri = "mongodb://127.0.0.1:27017";
 
   //Criar uma instância do cliente mongodb
-  const client = new MongoClient(url);
+  const client = new MongoClient(uri);
 
   try {
     // Conect com o servidor MongoDB
     await client.connect();
 
     // Seleciona o banco de dados "biblioteca"
-    const database = cliente.db("biblioteca");
+    const database = client.db("biblioteca");
 
     // Selecionando a coleção "livros"
     const livros = database.collection("livros");
