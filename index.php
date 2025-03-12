@@ -42,6 +42,7 @@ class FirebaseCRUD{
 }
 
 // Testando funções CRUD
+$FirebaseCRUD = new FirebaseCRUD();
 
 // Inserir um livro
 $FirebaseCRUD->create([
