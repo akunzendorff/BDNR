@@ -1,0 +1,17 @@
+{
+    "name": "fatec-dsm3/biblioteca",
+    "autoload": {
+        "psr-4": {
+            "FatecDsm3\\Biblioteca\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ana Flávia V. Kunzendorff",
+            "email": "142523426+akunzendorff@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "kreait/firebase-php": "^5.26"
+    }
+}
