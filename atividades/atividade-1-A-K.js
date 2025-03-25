@@ -31,59 +31,60 @@ async function main() {
         cuidador: "Sara"
       },
       {
-        nome: "Thor", 
-        especie: "Tigre-de-bengala", 
-        idade: 10, 
-        dieta: "Carnívoro",
-        habitat: "Floresta Tropical", 
+        nome: "Bella", 
+        especie: "Girafa", 
+        idade: 8, 
+        dieta: "Herbívoro",
+        habitat: "Savana", 
         vacinado: true,
-        cuidador: "Sara"
+        cuidador: "João"
       },
       {
-        nome: "Thor", 
-        especie: "Tigre-de-bengala", 
-        idade: 10, 
+        nome: "Leo", 
+        especie: "Leão", 
+        idade: 12, 
         dieta: "Carnívoro",
-        habitat: "Floresta Tropical", 
+        habitat: "Savana", 
         vacinado: true,
-        cuidador: "Sara"
+        cuidador: "Ana"
       },
       {
-        nome: "Thor", 
-        especie: "Tigre-de-bengala", 
-        idade: 10, 
-        dieta: "Carnívoro",
-        habitat: "Floresta Tropical", 
+        nome: "Dune", 
+        especie: "Camelo", 
+        idade: 6, 
+        dieta: "Herbívoro",
+        habitat: "Deserto", 
         vacinado: true,
-        cuidador: "Sara"
+        cuidador: "Pedro"
       },
       {
-        nome: "Thor", 
-        especie: "Tigre-de-bengala", 
-        idade: 10, 
+        nome: "Rocky", 
+        especie: "Robalo", 
+        idade: 3, 
         dieta: "Carnívoro",
-        habitat: "Floresta Tropical", 
-        vacinado: true,
-        cuidador: "Sara"
+        habitat: "Águas costeiras", 
+        vacinado: false,
+        cuidador: "Carlos"
       }
     ]);
 
-    // consultar todos os documentos
-    const todosAnimais = await animais.find().toArray();
-    console.log("Animais: ", todosAnimais);
+    // consultar todos os documentos de animais herbivoros
+    const todosAnimaisHerbivoros = await animais.find({ dieta: "Herbívoro" }).toArray();
+    console.log("Animais herbívoros: ", todosAnimaisHerbivoros);
 
-    // consultar todos os documentos
-    const animaisDeserto = await animais.find().toArray();
+    // consultar todos os documentos de animais que vivem no deserto
+    const animaisDeserto = await animais.find({habitat: "Deserto"}).toArray();
     console.log("Animais que vivem no deserto: ", animaisDeserto);
 
     // atualizar um documento
-    await animais.updataOne(
-      { especie: "leão" }, // Filtro para encontrar registro
+    await animais.updateMany(
+      { especie: {$regex: "felino", $options: "i" } }, // Filtro para encontrar registro
       { $set: { vacinado: true } }
     );
 
     // excluir um documento
-    await animais.deleteOne({ idade: 15 });
+    await animais.deleteMany({ idade: { $gt: 15 } });
+
   } finally {
     await client.close();
   }

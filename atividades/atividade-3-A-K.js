@@ -25,63 +25,63 @@ async function main() {
       { 
         nome: "Arya Ventis", 
         classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10     
+        nivel: 12, 
+        habilidades: ["Soco de trovão", "Invisibilidade"],
+        vida: 45     
       },
       {
-        nome: "Arya Ventis", 
-        classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10
+        nome: "Borin Pedraqueixo", 
+        classe: "Guerreiro", 
+        nivel: 18, 
+        habilidades: ["Golpe de espada", "Escudo de ferro"],
+        vida: 120
       },
       {
-        nome: "Arya Ventis", 
-        classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10
+        nome: "Lira Vento", 
+        classe: "Arqueiro", 
+        nivel: 9, 
+        habilidades: ["Disparo certeiro", "Flecha flamejante"],
+        vida: 60
       },
       { 
-        nome: "Arya Ventis", 
-        classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10     
+        nome: "Karn Morv", 
+        classe: "Guerreiro", 
+        nivel: 16, 
+        habilidades: ["Corte devastador", "Grito de batalha"],
+        vida: 150     
       },
       {
-        nome: "Arya Ventis", 
+        nome: "Elena Storm", 
         classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10
+        nivel: 20, 
+        habilidades: ["Tempestade elétrica", "Escudo mágico"],
+        vida: 90
       },
       {
-        nome: "Arya Ventis", 
-        classe: "Mago", 
-        nivel: 30, 
-        habilidade: "Soco de trovão",
-        vida: 10
+        nome: "Derek Light", 
+        classe: "Guerreiro", 
+        nivel: 14, 
+        habilidades: ["Corte de luz", "Desarme"],
+        vida: 85
       }
     ]);
 
     // consultar os documentos com o nivel maior que 10
-    const personagensNivel10 = await personagens.find().toArray();
+    const personagensNivel10 = await personagens.find({nivel: {$gt: 10}}).toArray();
     console.log("Personagens com o nível maior que 10: ", personagensNivel10);
 
-    // consultar os documentos com o nivel maior que 10
-    const personagensGuerreiros = await personagens.find().toArray();
+    // consultar os documentos com personagens guerreiros
+    const personagensGuerreiros = await personagens.find({classe: "guerreiro"}).toArray();
     console.log("Personagens da classe Guerreiro: ", personagensGuerreiros);
 
     // atualizar um documento
     await personagens.updateMany(
-      { habilidade: "Treinamento especial" }, // Filtro para encontrar registro
+      { classe: "Guerreiro" }, // Filtro para encontrar registro
       { $set: { vida: 200 } }
     );
 
     // excluir um documento
-    await personagens.deleteMany({ vida: 30 });
+    await personagens.deleteMany({ vida: {$lt: 30} });
 
   } finally {
     await client.close();

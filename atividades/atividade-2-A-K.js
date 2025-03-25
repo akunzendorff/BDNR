@@ -21,7 +21,7 @@ async function main() {
     const naves = database.collection("naves");
 
     // Inserindo dados do banco
-    await naves.insertMany([
+    const naveInserida = await naves.insertMany([
       { 
         nome: "Estrela Cadente",
         tipo: "Exploração",
@@ -48,22 +48,24 @@ async function main() {
       }
     ]);
 
+    const idsNaves = naveInserida.insertedIds;
+
     // consultar os documentos de naves em missão
-    const navesEmMissao = await naves.find().toArray();
+    const navesEmMissao = await naves.find({emMissao: true}).toArray();
     console.log("Naves em missão: ", navesEmMissao);
 
     // consultar todos os documentos
-    const navesCapacidadeMaior15 = await naves.find().toArray();
+    const navesCapacidadeMaior15 = await naves.find({capacidadeTripulantes: {$gt: 5} }).toArray();
     console.log("Naves com capacidade maior que 15: ", navesCapacidadeMaior15);
 
     // atualizar um documento
     await naves.updataOne(
       { tipo: "Carga" }, // Filtro para encontrar registro
-      { $set: { tipo: false } }
+      { $set: { emMissao: false } }
     );
 
     // excluir um documento
-    await naves.deleteMany({ capacidadeTripulantes: 3 });
+    await naves.deleteMany({ capacidadeTripulantes: {$lt: 3} });
 
     // Selecionando a coleção "tripulantes"
     const tripulantes = database.collection("tripulantes");
@@ -72,15 +74,15 @@ async function main() {
     await tripulantes.insertMany([
       { 
         nome: "Estrela Cadente",
-        id_nave: 3
+        id_nave: idsNaves["1"]
       },
       {
         nome: "Estrela Cadente",
-        id_nave: 3
+        id_nave: idsNaves["1"]
       },
       {
         nome: "Estrela Cadente",
-        id_nave: 3
+        id_nave: idsNaves["1"]
       },
     ]);
 
