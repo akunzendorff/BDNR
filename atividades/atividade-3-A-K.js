@@ -55,14 +55,14 @@ async function main() {
         classe: "Mago", 
         nivel: 20, 
         habilidades: ["Tempestade elétrica", "Escudo mágico"],
-        vida: 90
+        vida: 29
       },
       {
         nome: "Derek Light", 
         classe: "Guerreiro", 
-        nivel: 14, 
+        nivel: 9, 
         habilidades: ["Corte de luz", "Desarme"],
-        vida: 85
+        vida: 29
       }
     ]);
 
@@ -71,7 +71,7 @@ async function main() {
     console.log("Personagens com o nível maior que 10: ", personagensNivel10);
 
     // consultar os documentos com personagens guerreiros
-    const personagensGuerreiros = await personagens.find({classe: "guerreiro"}).toArray();
+    const personagensGuerreiros = await personagens.find({classe: "Guerreiro"}).toArray();
     console.log("Personagens da classe Guerreiro: ", personagensGuerreiros);
 
     // atualizar um documento

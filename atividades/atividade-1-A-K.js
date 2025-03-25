@@ -24,16 +24,16 @@ async function main() {
       {
         nome: "Thor", 
         especie: "Tigre-de-bengala", 
-        idade: 10, 
+        idade: 18, 
         dieta: "Carnívoro",
         habitat: "Floresta Tropical", 
-        vacinado: true,
+        vacinado: false,
         cuidador: "Sara"
       },
       {
         nome: "Bella", 
         especie: "Girafa", 
-        idade: 8, 
+        idade: 15, 
         dieta: "Herbívoro",
         habitat: "Savana", 
         vacinado: true,
@@ -45,7 +45,7 @@ async function main() {
         idade: 12, 
         dieta: "Carnívoro",
         habitat: "Savana", 
-        vacinado: true,
+        vacinado: false,
         cuidador: "Ana"
       },
       {
@@ -92,3 +92,4 @@ async function main() {
 
 // Chama a função principal e captura o erro, caso haja
 main().catch(console.error);
+

@@ -23,30 +23,31 @@ async function main() {
     // Inserindo dados do banco
     const naveInserida = await naves.insertMany([
       { 
-        nome: "Estrela Cadente",
+        nome: "Aurora Galáctica",
         tipo: "Exploração",
         capacidadeTripulantes: 1949,
         emMissao: true
       },
       {
-        nome: "Estrela Cadente",
+        nome: "Vega Vortex",
         tipo: "Exploração",
         capacidadeTripulantes: 1949,
         emMissao: true
       },
       {
-        nome: "Estrela Cadente",
+        nome: "Nebulosa Alpha",
         tipo: "Exploração",
         capacidadeTripulantes: 1949,
         emMissao: true
       },
       {
-        nome: "Estrela Cadente",
+        nome: "Cometa Estelar",
         tipo: "Exploração",
         capacidadeTripulantes: 1949,
         emMissao: true
       }
     ]);
+    
 
     const idsNaves = naveInserida.insertedIds;
 
@@ -59,7 +60,7 @@ async function main() {
     console.log("Naves com capacidade maior que 15: ", navesCapacidadeMaior15);
 
     // atualizar um documento
-    await naves.updataOne(
+    await naves.updateMany(
       { tipo: "Carga" }, // Filtro para encontrar registro
       { $set: { emMissao: false } }
     );
@@ -73,19 +74,18 @@ async function main() {
     // Inserindo dados do banco
     await tripulantes.insertMany([
       { 
-        nome: "Estrela Cadente",
+        nome: "Lucas Andrade",
         id_nave: idsNaves["1"]
       },
       {
-        nome: "Estrela Cadente",
-        id_nave: idsNaves["1"]
+        nome: "Sofia Martins",
+        id_nave: idsNaves["2"]
       },
       {
-        nome: "Estrela Cadente",
-        id_nave: idsNaves["1"]
+        nome: "Gustavo Pereira",
+        id_nave: idsNaves["3"]
       },
-    ]);
-
+    ]);    
 
   } finally {
     await client.close();
