@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Receitas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel = "stylesheet">
+</head>
+<body class = "container">
+    <h1 class = "my-4"> Receitas</h1>
+    
+    <!-- Fomulário de busca -->
+     <form action="/" method="GET" class="mb-4">
+        <div class="form-group">
+            <input type="text" name="search" class="form-control" placeholder="Buscar
+            Receita pelo nome" value="<%=searchQuery || ''%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+     </form>
+
+     <!-- Formulário para adicionar nova receita -->
+      <form action="/adicionar" method="POST" class="mb-4">
+        <div class="form-group">
+            <input type="text" name="form-control" placeholder="Nome da Receita" 
+            required>
+        </div>
+
+        <div class="form-group">
+            <textarea name="ingredientes" class="form-control" 
+            placeholder="Ingredientes (separados por virgula)" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <textarea name="instrucoes" class="form-control" 
+            placeholder="instruções" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Receita</button>
+      </form>
+
+      <!-- Lista de receitas -->
+       <ul class="list-group">
+        <% receitas.forEach(receita =>{ %>
+        <li class="list-group-item">
+            <h2><%= receita.nome %></h2>
+            <p>Ingredientes: <%= receita.ingredientes.join(', ')%></p>
+            <p><%= receita.instrucoes %></p>
+
+            <!-- Formulario para Deletar receita -->
+             <form action="/deletar" method="POST" class="d-inline">
+                <input type="hidden" nome="id" value="<%= receita._id.toString() %>">
+                <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+             </form>
+
+             <!-- Link para editar receita -->
+              <a href="/editar/<%=receita._id.toString()%>" 
+                class="btn btn-warning btn-sm ml-2">Editar</a>
+        </li>
+    <% }); %>
+       </ul>
+
+       <!-- Controle de paginação -->
+        <nav aria-label="Page navegation">
+            <ul class="pagination justify-content-center mt-4">
+                <%= if (page >1){ %>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<%=page -1 %><%= searchQuery ?
+                        '&search='+encodeURIComponent(searchQuery): '' %>" 
+                        aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+            <%} %>
+
+            <%for (let p=1; p<=totalPages; p++){ %>
+            <li class="page-item <%= p === page ? 'active': '' %>">
+                <a class="page-link" href="?page=<%= p %><%= searchQuery ?
+                    'search=' + encodeURIComponent(seachQuery): '' %>">
+                <%= p%>
+            </a>
+            </li>
+        <% } %>
+
+        <% if (page < totalPages) { %>
+        <li class="page-item">
+            <a class="page-link" href="?page=<%= page + 1 %><%= searchQuery ?
+                'search='+ encodeURIComponent(searchQuery) : '' %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+        </li>
+    <% } %>
+            </ul>
+        </nav>
+</body>
+</html>
